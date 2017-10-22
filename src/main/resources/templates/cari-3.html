@@ -1,0 +1,26 @@
+<html>
+<head th:replace="fragments/fragment :: header"></head>
+<body>
+	<div th:replace="fragments/fragment :: navbar"></div>
+	<div class="container">
+		<h3>Lihat Data Penduduk Berdasarkan Kota</h3>
+		<h5>Kota</h5>
+		<form action="/penduduk/cari" method="GET">
+			<select disabled="true" class="form-control" name="kt">
+				<option th:value="${kota.id}" th:text="${kota.nama_kota}"></option>
+			</select> <input type="hidden" name="kt" th:value="${kt}" />
+			<h5>Kecamatan</h5>
+			<select disabled="true" class="form-control" name="kc">
+				<option th:value="${kecamatan.id}"
+					th:text="${kecamatan.nama_kecamatan}"></option>
+			</select> <input type="hidden" name="kc" th:value="${kc}" />
+			<h5>Kelurahan</h5>
+			<select class="form-control" name="kl">
+				<option th:each="kelurahan : ${kelurahans}"
+					th:value="${kelurahan.id}" th:text="${kelurahan.nama_kelurahan}"></option>
+			</select> <br />
+			<button type="submit" class="btn btn-primary">Lihat</button>
+		</form>
+	</div>
+</body>
+</html>

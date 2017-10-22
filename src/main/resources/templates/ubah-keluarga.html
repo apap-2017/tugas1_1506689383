@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/fragment :: header"></head>
+<body>
+	<head th:replace="fragments/fragment :: navbar"></head>
+	<div class="container">
+		<div th:if="${sukses}">
+			<div class="alert alert-success alert-dismissable">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+				<strong>Sukses!</strong> <p th:text="${sukses}">This alert box could indicate a successful
+				or positive action. </p>
+			</div>
+		</div>
+		<h3>Ubah Keluarga</h3>
+		<form method="post" th:action="@{/keluarga/ubah/{nkk}(nkk=${keluarga.nomor_kk})}">
+			<div class="form-group">
+				<label for="text">Alamat</label> <input type="text"
+					class="form-control" name="alamat" th:value="${keluarga.alamat}" th:required="required" />
+			</div>
+			<div class="form-group">
+				<label for="text">RT</label> <input type="text"
+					class="form-control" name="rt" th:value="${keluarga.rt}" th:required="required" />
+			</div>
+			<div class="form-group">
+				<label for="text">RW</label> <input type="text"
+					class="form-control" name="rw" th:value="${keluarga.rw}" th:required="required" />
+			</div>
+			<div class="form-group">
+				<label for="text">Kelurahan/Desa</label> <input type="text"
+					class="form-control" name="nama_kelurahan" th:value="${keluarga.nama_kelurahan}" th:required="required" />
+			</div>
+			<div class="form-group">
+				<label for="text">Kecamatan</label> <input type="text"
+					class="form-control" name="nama_kecamatan" th:value="${keluarga.nama_kecamatan}" th:required="required" />
+			</div>
+			<div class="form-group">
+				<label for="text">Kota</label> <input type="text"
+					class="form-control" name="nama_kota" th:value="${keluarga.nama_kota}" th:required="required" />
+			</div>
+			<input type="hidden" name="nomor_kk" th:value="${keluarga.nomor_kk}"/>
+			<button type="submit" class="btn btn-primary">Ubah</button>
+		</form>
+	</div>
+</body>
+</html>

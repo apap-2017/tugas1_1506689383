@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title th:text="${title}">View All Students</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+<link rel="stylesheet" href="/css/style.css"></link>
+</head>
+<body>
+<head th:replace="fragments/fragment :: navbar"></head>
+<div class="container">
+	<div th:if="${sukses}">
+		<div class="alert alert-danger alert-dismissable">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+			<p th:text="${error}">This alert box could indicate a successful
+				or positive action.</p>
+		</div>
+	</div>
+	<h3>Tambah Penduduk</h3>
+	<form method="post" action="/penduduk/tambah">
+		<div class="form-group">
+			<label for="text">Masukkan Nama</label> <input type="text"
+				class="form-control" name="nama" th:required="required" />
+		</div>
+		<div class="form-group">
+			<label for="text">Tempat Lahir</label> <input type="text"
+				class="form-control" name="tempat_lahir" th:required="required" />
+		</div>
+		<div class="form-group">
+			<label for="text">Tanggal Lahir</label> <input type="date"
+				class="form-control" name="tanggal_lahir" th:required="required" />
+		</div>
+		<div class="form-group">
+			<label for="text">Jenis Kelamin</label> <select class="form-control"
+				name="jenis_kelamin" th:required="required">
+				<option></option>
+				<option value="0">Laki-laki</option>
+				<option value="1">Perempuan</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="text" >Golongan Darah</label><input type="text"
+				class="form-control"  data-toggle="tooltip" title="Masukkan tipe -/+ Darah" name="golongan_darah"
+				 th:required="required">
+			</input>
+		</div>
+		<div class="form-group">
+			<label for="text">Agama</label> <input type="text"
+				class="form-control" name="agama" th:required="required" />
+		</div>
+		<div class="form-group">
+			<label for="text">Status Perkawinan</label> <select
+				class="form-control" name="status_perkawinan" th:required="required">
+				<option></option>
+				<option>Kawin</option>
+				<option>Belum Kawin</option>
+				<option>Cerai Hidup</option>
+				<option>Cerai Mati</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="text">Pekerjaan</label> <input type="text"
+				class="form-control" name="pekerjaan" th:required="required" />
+		</div>
+		<div class="form-group">
+			<label for="text">Kewarganegaraan</label> <select
+				class="form-control" name="is_wni" th:required="required">
+				<option></option>
+				<option value="1">WNI</option>
+				<option value="0">WNA</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="text">Status Kematian</label> <select
+				class="form-control" name="is_wafat" th:required="required">
+				<option></option>
+				<option value="0">Hidup</option>
+				<option value="1">Wafat</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="text">ID Keluarga</label> <input type="number"
+				min='1' class="form-control" name="id_keluarga" th:required="required" />
+		</div>
+		<div class="form-group">
+			<label for="text">Status Dalam Keluarga</label> <select
+				class="form-control" name="status_dalam_keluarga"
+				th:required="required">
+				<option></option>
+				<option value="Anak">Anak</option>
+				<option value="Famili Lain">Famili Lain</option>
+				<option value="Istri">Istri</option>
+				<option value="Kepala Keluarga">Kepala Keluarga</option>
+				<option value="Pembantu">Pembantu</option>
+			</select>
+		</div>
+		<button type="submit" class="btn btn-primary">Tambah</button>
+	</form>
+</div>
+</body>
+</html>

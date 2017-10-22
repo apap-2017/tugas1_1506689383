@@ -1,0 +1,49 @@
+<html>
+<head>
+<title th:text="${title}">View All Students</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"></link>
+
+<script type="text/javascript"
+	src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+
+<script>
+$(document).ready(function(){
+    $('#table_id').DataTable();
+});</script>
+</head>
+<body>
+	<div th:replace="fragments/fragment :: navbar"></div>
+	<div class="container">
+		<h3 th:text="${judul}"></h3>
+		<hr/>
+		<table class="table table-striped" id="table_id">
+			<thead>
+				<tr>
+					<th>NIK</th>
+					<th>Nama</th>
+					<th>Jenis Kelamin</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="penduduk,iterationStatus: ${penduduks}">
+					<td th:text="${penduduk.nik}">Penduduk NIk</td>
+					<td th:text="${penduduk.nama}">Penduduk Nama</td>
+					<td th:text="${penduduk.jenis_kelamin == '0' }? 'Laki-laki' : 'Perempuan'">Penduduk Jenis Kelamin</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
