@@ -25,17 +25,49 @@ public class PendudukServiceDatabase implements PendudukService {
 
 	@Override
 	public PendudukModel selectPenduduk(String nik) {
-		return pendudukMapper.selectPenduduk(nik);
+		PendudukModel a = pendudukMapper.selectPenduduk(nik);
+		log.info(a.getTanggal_lahir());
+		String[] split = a.getTanggal_lahir().split("-");
+		String tanggal = "";
+		if (split[1].equals("01")) {
+			tanggal = split[2] + " Januari " + split[0];
+		} else if (split[1].equals("02")) {
+			tanggal = split[2] + " Februari " + split[0];
+		} else if (split[1].equals("03")) {
+			tanggal = split[2] + " Maret " + split[0];
+		} else if (split[1].equals("04")) {
+			tanggal = split[2] + " April " + split[0];
+		} else if (split[1].equals("05")) {
+			tanggal = split[2] + " Mei " + split[0];
+		} else if (split[1].equals("06")) {
+			tanggal = split[2] + " Juni " + split[0];
+		} else if (split[1].equals("07")) {
+			tanggal = split[2] + " Juli " + split[0];
+		} else if (split[1].equals("08")) {
+			tanggal = split[2] + " Agustus " + split[0];
+		} else if (split[1].equals("09")) {
+			tanggal = split[2] + " September " + split[0];
+		} else if (split[1].equals("10")) {
+			tanggal = split[2] + " Oktober " + split[0];
+		} else if (split[1].equals("11")) {
+			tanggal = split[2] + " November " + split[0];
+		} else if (split[1].equals("12")) {
+			tanggal = split[2] + " Desember " + split[0];
+		}
+		
+		a.setTanggal_lahir(tanggal);
+		return a;
 	}
 
 	@Override
 	public boolean tambahPenduduk(PendudukModel penduduk) {
-		
-		if (penduduk.getNama() != null && penduduk.getNama() != null && penduduk.getTempat_lahir()
-				!= null && penduduk.getTanggal_lahir() != null && penduduk.getJenis_kelamin() != null && penduduk.getGolongan_darah()
-				!= null && penduduk.getAgama() != null && penduduk.getStatus_perkawinan() != null && penduduk.getPekerjaan()
-				!= null && penduduk.getIs_wni() != null && penduduk.getIs_wafat() != null && penduduk.getId_keluarga()
-				!= null && penduduk.getStatus_dalam_keluarga() != null) {
+
+		if (penduduk.getNama() != null && penduduk.getNama() != null && penduduk.getTempat_lahir() != null
+				&& penduduk.getTanggal_lahir() != null && penduduk.getJenis_kelamin() != null
+				&& penduduk.getGolongan_darah() != null && penduduk.getAgama() != null
+				&& penduduk.getStatus_perkawinan() != null && penduduk.getPekerjaan() != null
+				&& penduduk.getIs_wni() != null && penduduk.getIs_wafat() != null && penduduk.getId_keluarga() != null
+				&& penduduk.getStatus_dalam_keluarga() != null) {
 			String nik = this.validasiNik(penduduk);
 			penduduk.setNik(nik);
 			pendudukMapper.tambahPenduduk(penduduk);
@@ -47,14 +79,15 @@ public class PendudukServiceDatabase implements PendudukService {
 
 	@Override
 	public boolean ubahPenduduk(PendudukModel penduduk) {
-		if (penduduk.getNama() != null && penduduk.getNama() != null && penduduk.getTempat_lahir()
-				!= null && penduduk.getTanggal_lahir() != null && penduduk.getJenis_kelamin() != null && penduduk.getGolongan_darah()
-				!= null && penduduk.getAgama() != null && penduduk.getStatus_perkawinan() != null && penduduk.getPekerjaan()
-				!= null && penduduk.getIs_wni() != null && penduduk.getIs_wafat() != null && penduduk.getId_keluarga()
-				!= null && penduduk.getStatus_dalam_keluarga() != null) {
+		if (penduduk.getNama() != null && penduduk.getNama() != null && penduduk.getTempat_lahir() != null
+				&& penduduk.getTanggal_lahir() != null && penduduk.getJenis_kelamin() != null
+				&& penduduk.getGolongan_darah() != null && penduduk.getAgama() != null
+				&& penduduk.getStatus_perkawinan() != null && penduduk.getPekerjaan() != null
+				&& penduduk.getIs_wni() != null && penduduk.getIs_wafat() != null && penduduk.getId_keluarga() != null
+				&& penduduk.getStatus_dalam_keluarga() != null) {
 			String nikLama = penduduk.getNik();
 			PendudukModel pendudukLama = pendudukMapper.selectPenduduk(nikLama);
-			
+
 			if (!(pendudukLama.getId_keluarga().equals(penduduk.getId_keluarga()))
 					|| !(penduduk.getTanggal_lahir().equals(pendudukLama.getTanggal_lahir()))
 					|| !(penduduk.getJenis_kelamin().equals(pendudukLama.getJenis_kelamin()))) {
@@ -64,13 +97,14 @@ public class PendudukServiceDatabase implements PendudukService {
 
 			pendudukMapper.ubahPenduduk(penduduk.getNik(), penduduk.getNama(), penduduk.getTempat_lahir(),
 					penduduk.getTanggal_lahir(), penduduk.getGolongan_darah(), penduduk.getAgama(),
-					penduduk.getStatus_perkawinan(), penduduk.getPekerjaan(), penduduk.getIs_wni(), penduduk.getIs_wafat(),
-					penduduk.getId_keluarga(), penduduk.getJenis_kelamin(), penduduk.getStatus_dalam_keluarga(), nikLama);
+					penduduk.getStatus_perkawinan(), penduduk.getPekerjaan(), penduduk.getIs_wni(),
+					penduduk.getIs_wafat(), penduduk.getId_keluarga(), penduduk.getJenis_kelamin(),
+					penduduk.getStatus_dalam_keluarga(), nikLama);
 			return true;
 		} else {
 			return false;
 		}
-		
+
 	}
 
 	public String validasiNik(PendudukModel penduduk) {
