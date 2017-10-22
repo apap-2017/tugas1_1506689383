@@ -49,24 +49,18 @@ public class KeluargaServiceDatabase implements KeluargaService {
 		Date date = new Date();
 		String dateNow = dateFormat.format(date);
 		
-		if(!(kelLama.getNomor_kk().substring(6, 12).equals(dateNow)) || keluarga.getId_kelurahan() != keluarga.getNama_kecamatan()) {
+		if(!(kelLama.getNomor_kk().substring(6, 12).equals(dateNow)) || keluarga.getNama_kelurahan() != kelLama.getNama_kelurahan()) {
 			String nkk = this.validasiNkk(keluarga, dateNow);
 			keluarga.setNomor_kk(nkk);
 		}
-		
-		KelurahanModel kel = keluargaMapper.getIdKel(keluarga.getNama_kelurahan());
-		String idKel = "" + kel.getId();
-		keluarga.setId_kelurahan(idKel);
 		
 		keluargaMapper.ubahKeluarga(keluarga.getNomor_kk(), keluarga.getAlamat(), keluarga.getRt(), keluarga.getRw(), keluarga.getId_kelurahan(), nkkLama);
 	}
 
 	public String validasiNkk(KeluargaModel keluarga, String dateNow) {
 		
-		// String namaKel = "lcase('" + keluarga.getNama_kelurahan() + "')";
 		KelurahanModel kelurahan = keluargaMapper.getIdKel(keluarga.getNama_kelurahan());
 		KecamatanModel kecamatan = keluargaMapper.getIdKec(keluarga.getNama_kecamatan());
-		// KotaModel kota = keluargaMapper.getIdKota(keluarga.getNama_kota());
 
 		String idKel = "" + kelurahan.getId();
 		

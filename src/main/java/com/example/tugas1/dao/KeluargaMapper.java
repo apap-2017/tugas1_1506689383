@@ -20,7 +20,7 @@ import com.example.tugas1.model.PendudukModel;
 @Mapper
 public interface KeluargaMapper {
 
-	@Select("select nomor_kk, alamat, rt, rw, nama_kelurahan, nama_kecamatan, nama_kota"
+	@Select("select nomor_kk, alamat, rt, rw, nama_kelurahan, nama_kecamatan, nama_kota, k.id as id_kel"
 			+ " from keluarga k join kelurahan kl" + " on id_kelurahan = kl.id join kecamatan kc"
 			+ " on id_kecamatan = kc.id join kota ko" + " on id_kota = ko.id where nomor_kk=#{nkk}")
 	@Results(value = { @Result(property = "nomor_kk", column = "nomor_kk"),
@@ -28,12 +28,11 @@ public interface KeluargaMapper {
 			@Result(property = "rw", column = "rw"), @Result(property = "nama_kelurahan", column = "nama_kelurahan"),
 			@Result(property = "nama_kecamatan", column = "nama_kecamatan"),
 			@Result(property = "nama_kota", column = "nama_kota"),
-			@Result(property = "penduduks", column = "nomor_kk", javaType = List.class, many = @Many(select = "selectPenduduks")) })
+			@Result(property = "penduduks", column = "id_kel", javaType = List.class, many = @Many(select = "selectPenduduksByIdFam")) })
 	KeluargaModel selectKeluarga(@Param("nkk") String nkk);
-
-	@Select("select nama, nik, jenis_kelamin, tempat_lahir, tanggal_lahir, agama, pekerjaan, status_perkawinan, status_dalam_keluarga, is_wni"
-			+ " from penduduk join keluarga k" + " on id_keluarga = k.id " + "where nomor_kk = #{nkk}")
-	List<PendudukModel> selectPenduduks(@Param("nkk") String nkk);
+	
+	@Select("select nama, nik, jenis_kelamin, tempat_lahir, tanggal_lahir, agama, pekerjaan, status_perkawinan, status_dalam_keluarga, is_wni, is_wafat from penduduk where id_keluarga=#{id_keluarga}")
+	List<PendudukModel> selectPenduduksByIdFam(@Param("id_keluarga") String id_keluarga);
 
 	@Select("select kode_kecamatan" + " from keluarga k join kelurahan kl"
 			+ " on id_kelurahan = kl.id join kecamatan kc" + "d where k.id=#{id}")

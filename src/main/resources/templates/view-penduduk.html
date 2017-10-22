@@ -83,7 +83,7 @@
 					type="hidden" th:value="${penduduk.nik}" name="nik"></input> <input
 					type="hidden" th:value="${penduduk.id_keluarga}" name="id_keluarga"></input>
 				<button type="submit" class="btn-danger" id="nonaktif"
-					th:classappend="${penduduk.is_wafat == '1'} ? disabled : btn">Nonaktifkan</button>
+					th:attr="disabled=${penduduk.is_wafat == '1'} ? 'true' : 'false'">Nonaktifkan</button>
 			</form>
 		</div>
 	</div>

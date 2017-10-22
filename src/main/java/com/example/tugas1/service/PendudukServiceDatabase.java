@@ -25,7 +25,6 @@ public class PendudukServiceDatabase implements PendudukService {
 
 	@Override
 	public PendudukModel selectPenduduk(String nik) {
-		log.info("Masuk");
 		return pendudukMapper.selectPenduduk(nik);
 	}
 
@@ -75,12 +74,9 @@ public class PendudukServiceDatabase implements PendudukService {
 	}
 
 	public String validasiNik(PendudukModel penduduk) {
-		// TestCase: Panca Muhammad 3101011108170002
-		log.info("nik");
 		String idkeluarga = penduduk.getId_keluarga();
 		KecamatanModel kec = daerahMapper.selectKode(idkeluarga);
 		String nik = kec.getKode_kecamatan().substring(0, 6);
-		// 2017-10-11 tahun-bulan-tanggal
 		String[] tgl = penduduk.getTanggal_lahir().split("-");
 		tgl[0] = tgl[0].substring(2, 4);
 		String tglfix = tgl[2] + tgl[1] + tgl[0];
@@ -125,7 +121,7 @@ public class PendudukServiceDatabase implements PendudukService {
 		penduduk.setIs_wafat("1");
 		pendudukMapper.nonaktif(penduduk);
 
-		List<PendudukModel> keluarga = pendudukMapper.selectKeluarga(penduduk.getId_keluarga());
+		List<PendudukModel> keluarga = keluargaMapper.selectPenduduksByIdFam(penduduk.getId_keluarga());
 		int total = keluarga.size();
 		int cek = 0;
 
@@ -136,7 +132,6 @@ public class PendudukServiceDatabase implements PendudukService {
 		}
 
 		if (cek == total) {
-			log.info("masuk total sih");
 			log.info(penduduk.getId_keluarga());
 			pendudukMapper.setTidakBerlaku(penduduk.getId_keluarga());
 		}
