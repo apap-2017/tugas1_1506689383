@@ -44,7 +44,4 @@ public interface PendudukMapper {
 	
 	@Update("update keluarga set is_tidak_berlaku='1' where id=#{id}")
 	void setTidakBerlaku(@Param("id") String id);
-	
-	@Select("select nama, nik, jenis_kelamin from penduduk where id_keluarga=#{id_keluarga}")
-	List<PendudukModel> selectPenduduksByIdFam(@Param("id_keluarga") String id_keluarga);
 }

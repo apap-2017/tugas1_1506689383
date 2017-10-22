@@ -140,11 +140,10 @@ public class PendudukServiceDatabase implements PendudukService {
 	@Override
 	public List<PendudukModel> pendudukKelurahan(String id_kelurahan) {
 		List<String> fam = keluargaMapper.getKeluarga(id_kelurahan);
-		List<PendudukModel> total = pendudukMapper.selectPenduduksByIdFam(fam.get(0));
-		;
+		List<PendudukModel> total = keluargaMapper.selectPenduduksByIdFam(fam.get(0));
 
 		for (int i = 1; i < fam.size(); i++) {
-			List<PendudukModel> tmp = pendudukMapper.selectPenduduksByIdFam(fam.get(i));
+			List<PendudukModel> tmp = keluargaMapper.selectPenduduksByIdFam(fam.get(i));
 			System.out.println(i + " " + fam.get(i) + " " + tmp.size());
 			total.addAll(tmp);
 		}
